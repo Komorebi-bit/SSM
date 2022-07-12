@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+    <bean id="app" class="com.ko.App">
+        <property name="name" value="spring"></property>
+    </bean>
+
+    <!--id:bean的名字 name:bean的别名,多个名之间用空格，逗号，分号隔开-->
+    <!--scope 作用范围prototype非单例 singleton单例，默认-->
+    <bean id="bookDao" name="dao bookEbi" class="com.ko.dao.impl.BookDaoImpl" scope="singleton" init-method="init" destroy-method="destory">
+        <property name="connectionNum" value="10"/>
+        <property name="dataBaseName" value="mysql"/>
+    </bean>
+
+    <bean id="userDao" class="com.ko.dao.impl.UserDaoImpl"/>
+
+    <bean id="bookService" name="service" class="com.ko.service.impl.BookServiceImpl">
+        <!--配置service与dao的关系-->
+        <!--name指的是service类的属性 ref表示参照的哪个bean-->
+
+        <!-- set注入 -->
+        <property name="bookDao" ref="bookDao"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <!-- 构造器注入 -->
+    <bean id="bookDao_1" class="com.ko.dao.impl.BookDaoImpl">
+        <!-- 标准方式 -->
+        <constructor-arg name="connectionNum" value="66"/>
+        <constructor-arg name="dataBaseName" value="mysql"/>
+
+        <!-- 按顺序 -->
+        <!--<constructor-arg value="666"/>
+        <constructor-arg value="mysql"/>-->
+
+        <!-- 按类型 -->
+        <!--<constructor-arg type="int" value="6666"/>
+        <constructor-arg type="String" value="mysql"/>-->
+
+        <!-- 按位置 -->
+        <!--<constructor-arg index="0" value="66666"/>
+        <constructor-arg index="1" value="mysql"/>-->
+    </bean>
+
+    <bean id="bookService_1" name="service_1" class="com.ko.service.impl.BookServiceImpl_1">
+        <!--配置service与dao的关系-->
+        <!--name指的是service类的属性 ref表示参照的哪个bean-->
+
+        <!-- 构造器注入注入 -->
+        <!-- name是构造方法形参的注入 -->
+        <constructor-arg name="bookDao" ref="bookDao_1"/>
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>
+
+    <!--  使用静态工厂实例化bean  -->
+    <bean id="orderDao" class="com.ko.factory.OrderDaoFactory" factory-method="getOrderDao"/>
+
+    <!--  使用实例工厂实例化bean  -->
+    <!--<bean id="userFactory" class="com.ko.factory.UserDaoFactory"/>
+    <bean id="userDao" factory-method="getUserDao" factory-bean="userFactory"/>-->
+
+    <!-- 使用FactoryBean实例化bean -->
+    <!--<bean id="userDao" class="com.ko.factory.UserDaoFactoryBean"/>-->
+
+    <!-- 自动装配，需要set方法 需要bean 按类型同类型bean只能由有一个; 按名称，set方法名（属性名）与bean的id名一致（不推荐使用）-->
+    <!-- 自动装配的优先级低于set，构造器装配 -->
+    <!--<bean id="" class="" autowire="byType"/>-->
+
+    <!-- 集合注入 -->
+    <bean id="foodDao" class="com.ko.dao.impl.FoodDaoImpl">
+        <property name="array">
+            <array>
+                <value>100</value>
+                <value>300</value>
+                <value>300</value>
+<!--   引用类型   <ref bean="beanID"/>-->
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <value>a</value>
+                <value>s</value>
+                <value>d</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>j</value>
+                <value>k</value>
+                <value>l</value>
+                <value>l</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="country" value="china"/>
+                <entry key="province" value="shandong"/>
+                <entry key="city" value="heze"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="country">china</prop>
+                <prop key="province">shandong</prop>
+                <prop key="city">heze</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 开启context命名空间 -->
+    <!-- 加载properties文件 多个用逗号隔开-->
+    <!-- classpath:*.properties 加载当前项目所有的properties文件-->
+    <!-- classpath*:*.properties 加载当前项目及他所依赖的jar包中所有的properties文件-->
+    <!--<context:property-placeholder location="jdbc.properties" system-properties-mode="NEVER"/>
+    <bean class="">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+-->
+    <!-- 加载注解 -->
+    <!--
+        @Controller 用于表示层bean定义
+        @Service 用于业务层bean定义
+        @Repository 用于数据层bean定义
+     -->
+    <!-- 可以用配置类代替 -->
+    <!--<context:component-scan base-package="com.ko"/>-->
+
+</beans>
