@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+    <!-- 开启context命名空间 -->
+    <!-- 加载properties文件 多个用逗号隔开-->
+    <!-- classpath:*.properties 加载当前项目所有的properties文件-->
+    <!-- classpath*:*.properties 加载当前项目及他所依赖的jar包中所有的properties文件-->
+    <!--<context:property-placeholder location="jdbc.properties" system-properties-mode="NEVER"/>
+    <bean class="">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+-->
+    <!-- 加载注解 -->
+    <!--
+        @Controller 用于表示层bean定义
+        @Service 用于业务层bean定义
+        @Repository 用于数据层bean定义
+     -->
+    <!-- 可以用配置类代替 -->
+    <!--<context:component-scan base-package="com.ko"/>-->
+
+</beans>
