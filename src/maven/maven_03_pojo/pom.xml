@@ -8,6 +8,14 @@
     <artifactId>maven_03_pojo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <parent>
+        <groupId>com.ko.maven</groupId>
+        <artifactId>maven_01_parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <!-- 快速找到父工程 -->
+        <relativePath>../maven_01_parent/pom.xml</relativePath>
+    </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

@@ -172,4 +172,16 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- 配置当前工程保存在私服中的具体位置 -->
+    <distributionManagement>
+        <repository>
+            <id>ko-release</id>
+            <url>http://localhost:8081/repository/ko-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ko-snapshot</id>
+            <url>http://localhost:8081/repository/ko-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
