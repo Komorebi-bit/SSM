@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.ko.maven</groupId>
+  <artifactId>maven_02_ssm</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <!-- 配置当前工程继承自parent工程 -->
+  <parent>
+    <groupId>com.ko.maven</groupId>
+    <artifactId>maven_01_parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!-- 快速找到父工程 -->
+    <relativePath>../maven_01_parent/pom.xml</relativePath>
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+
+  <!--
+  依赖传递
+      依赖具有传递性，依赖可以依赖依赖的依赖
+   依赖传递冲突问题
+      路径优先：当依赖中出现相同的资源时，层级越深，优先级越低，层级越浅，优先级越高
+      声明优先：当资源在相同层级被依赖时，配置顺序靠前的覆盖配置顺序靠后的
+      特殊优先：当同级配置了相同资源的不同版本，后配置的覆盖先配置的
+   可选依赖
+   排除依赖
+
+   -->
+
+
+  <dependencies>
+
+
+    <!-- 依赖domain -->
+    <!-- <dependency>
+      <groupId>com.ko.maven</groupId>
+      <artifactId>maven_03_pojo</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency> -->
+
+    <!-- 依赖dao -->
+    <dependency>
+      <groupId>com.ko.maven</groupId>
+      <artifactId>maven_04_dao</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <!-- 排除依赖 隐藏当前资源对应的依赖关系 -->
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- 配置01中可以选择的依赖 -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <port>80</port>
+          <path>/</path>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <!-- 简单方式 注解创建一个空的web.xml -->
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <!-- 没有遇到web.xml文件是否报错 -->
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
+</project>
