@@ -1,5 +1,7 @@
 package com.ko.pojo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -20,6 +22,8 @@ public class User {
     private Date creationDate; //创建时间
     private Integer modifyBy;     //更新者
     private Date modifyDate;   //更新时间
+    // private String roleName;   //用户角色
+    private String userRoleName;  //用户角色  学习mybatis的ResultMap
 
     public Integer getId() {
             return id;
@@ -99,23 +103,38 @@ public class User {
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
     }
+    // public String getRoleName() {
+    //     return roleName;
+    // }
+    // public void setRoleName(String roleName) {
+    //     this.roleName = roleName;
+    // }
+    public String getUserRoleName() {
+        return userRoleName;
+    }
+    public void setUserRoleName(String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
 
     @Override
     public String toString() {
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return "User{" +
-                "id=" + id +
-                ", userCode='" + userCode + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", gender=" + gender +
-                ", birthday=" + birthday +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", userRole=" + userRole +
-                ", createdBy=" + createdBy +
-                ", creationDate=" + creationDate +
-                ", modifyBy=" + modifyBy +
-                ", modifyDate=" + modifyDate +
-                '}';
+            "id=" + id +
+            ", userCode='" + userCode + '\'' +
+            ", userName='" + userName + '\'' +
+            ", userPassword='" + userPassword + '\'' +
+            ", gender=" + gender +
+            ", birthday=" + (birthday==null? null:f.format(birthday)) +
+            ", phone='" + phone + '\'' +
+            ", address='" + address + '\'' +
+            ", userRole=" + userRole +
+            ", createdBy=" + createdBy +
+            ", creationDate=" + (creationDate==null? null:f.format(creationDate)) +
+            ", modifyBy=" + modifyBy +
+            ", modifyDate=" + (modifyDate==null? null:f.format(modifyDate)) +
+            // ", roleName=" + roleName +
+            ", userRoleName=" + userRoleName +
+            '}';
     }
 }

@@ -2,6 +2,9 @@ package com.ko.dao.user;
 
 import com.ko.pojo.User;
 import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @author Komorebi
@@ -11,4 +14,19 @@ import java.util.List;
 public interface UserMapper {
     int count();
     List<User> getUserList();
+    List<User> getUserListByName(String userName);
+    List<User> getUserListByUser(User user);
+    List<User> getUserListByMap(Map map);
+    List<User> getUserListRoleNameByUser(User user);
+
+    // @ResultMap("userList")
+    // @Select("select u.*,r.roleName from smbms_user u, smbms_role r where userName like concat('%',#{userName},'%') and userRole=#{userRole} and u.userRole=r.id;")
+    List<User> getUserListRoleNameByResultMap(User user);
+
+
+
+    @Select("select u.*,r.roleName from smbms_user u, smbms_role r where  u.userRole=r.id;")
+    List<User> a();
+
+
 }

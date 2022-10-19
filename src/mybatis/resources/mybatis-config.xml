@@ -6,6 +6,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
     <properties resource="database.properties"/>
 
+    <settings>
+        <!-- PARTIAL NONE-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+    </settings>
+
     <typeAliases>
         <typeAlias type="com.ko.pojo.User" alias="user"/>
     </typeAliases>

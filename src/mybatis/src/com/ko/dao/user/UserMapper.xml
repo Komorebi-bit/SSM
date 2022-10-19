@@ -14,4 +14,44 @@
   <select id="getUserList" resultType="user">
     select * from smbms_user
   </select>
+
+  <!-- 查询用户信息通过用户名 userName变量名无要求 -->
+  <select id="getUserListByName" resultType="user" parameterType="string">
+    select * from smbms_user
+             where userName like concat('%',#{userName},'%')
+  </select>
+
+  <!-- 直接通过类属性赋值 -->
+  <select id="getUserListByUser" resultType="user" parameterType="user">
+    select * from smbms_user
+             where userName like concat('%',#{userName},'%') and userRole = #{userRole}
+  </select>
+
+  <!-- map集合方式 -->
+  <select id="getUserListByMap" resultType="user" parameterType="map">
+    select * from smbms_user
+             where userName like concat('%',#{uName},'%') and userRole = #{uRole}
+  </select>
+
+  <select id="getUserListRoleNameByUser" resultType="user" parameterType="user">
+    select u.*,r.roleName from smbms_user u, smbms_role r
+             where userName like concat('%',#{userName},'%')
+                and userRole=#{userRole} and u.userRole=r.id;
+  </select>
+
+  <!-- property对应的是结果集的字段或属性; column对应的是数据库的列名或别名 -->
+  <resultMap id="userList" type="user">
+    <result property="id" column="id"/>
+    <result property="userCode" column="userCode"/>
+    <result property="userName" column="userName"/>
+    <result property="userRole" column="userRole"/>
+    <result property="userRoleName" column="roleName"/>
+  </resultMap>
+
+  <select id="getUserListRoleNameByResultMap" resultMap="userList" parameterType="user">
+    select u.*,r.roleName from smbms_user u, smbms_role r
+            where userName like concat('%',#{userName},'%')
+                and userRole=#{userRole} and u.userRole=r.id;
+  </select>
+
 </mapper>
