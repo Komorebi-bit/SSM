@@ -54,4 +54,26 @@
                 and userRole=#{userRole} and u.userRole=r.id;
   </select>
 
+  <insert id="add" parameterType="user" >
+    insert into smbms_user(userCode,userName,userPassword,gender,userRole)
+            values(#{userCode},#{userName},#{userPassword},#{gender},#{userRole})
+  </insert>
+
+  <delete id="deleteById" parameterType="int">
+    delete from smbms_user where id = #{id}
+  </delete>
+  
+  <update id="modify" parameterType="user">
+    update smbms_user set userCode=#{userCode}, userName=#{userName},
+                          userPassword=#{userPassword},gender=#{gender},
+                          birthday=#{birthday},phone=#{phone},
+                          address=#{address},modifyBy=#{modifyBy},
+                          modifyDate=#{modifyDate}
+                          where id = #{id};
+  </update>
+
+  <update id="modifyPassword">
+    update smbms_user set userPassword = #{newPassword}
+                      where userName=#{userName} and userPassword=#{oldPassword}
+  </update>
 </mapper>
