@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        ">
+
+
+  <bean id="user" class="com.ko.pojo.User">
+    <property name="name" value="emmm"/>
+    <property name="age" value="16"/>
+  </bean>
+  <bean id="_userDao" class="com.ko.dao.impl.UserDaoImpl"/>
+
+  <bean id="zhangga" class="com.ko.pojo.HelloSpring">
+    <property name="who" value="张嘎"/>
+    <property name="content" value="三天不打鬼子，手都痒痒"/>
+  </bean>
+
+  <bean id="rod" class="com.ko.pojo.HelloSpring">
+    <property name="who" value="Rod"/>
+    <property name="content" value="世界上有10种人，认识二进制的和不认识二进制的"/>
+  </bean>
+
+
+</beans>
